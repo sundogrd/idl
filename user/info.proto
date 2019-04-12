@@ -1,0 +1,30 @@
+syntax = "proto3";
+package user;
+service UserService {
+  rpc GetIdeas(User) returns (Ideas) {}
+  rpc ListUsers(ListUsersRequest) returns (ListUsersResponse);
+
+}
+
+message ListUsersRequest {
+  string name = 1;
+  int32 page_size = 2;
+  int32 page = 3;
+}
+
+message ListUsersResponse {
+  repeated User users = 1;
+  int64 total = 2
+}
+
+message User {
+  int32  id = 1;
+  string name = 2;
+  string avatar_url = 3;
+  string company = 4;
+  string email = 5;
+  string created_at = 6
+  string updated_at = 7
+  string deleted_at = 8
+  string extra = 9
+}
