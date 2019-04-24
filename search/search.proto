@@ -1,0 +1,17 @@
+syntax = "proto3";
+package search;
+service SearchService {
+  rpc Search(SearchRequest) returns (SearchResponse);
+}
+
+message SearchRequest {
+  int64 user_id = 1;
+}
+
+message SearchResponse {
+  SearchResult results  = 1;
+}
+
+message SearchResult {
+  int32  id = 1;
+}
