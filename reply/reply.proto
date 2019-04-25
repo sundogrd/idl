@@ -1,0 +1,180 @@
+syntax = "proto3";
+package reply;
+
+//service
+service ReplyService {
+    // // 获取每个应用所有评论
+    // rpc ListRepliesByApp(ListByAppReq) returns (ListByAppRes);
+    // // 获取某个目标所有评论,比如文章
+    // rpc ListRepliesByTarget(ListByTargetReq) returns (ListByTargetRes);
+    // // 获取单个评论
+    // rpc GetReplyById(GetByIdReq) returns (GetByIdRes);
+    // // 获取某个评论回复
+    // rpc ListRepliesByReply(ListByReplyReq) returns (ListByReplyRes);
+    // // 获取某个用户所有评论
+    // rpc ListRepliesByCreator(ListByUserReq) returns (ListByUserRes);
+    // // 获取某段时间的评论
+
+    rpc ListReplies(ListRepliesReq) returns (ListRepliesRes);
+    rpc GetReplyById(GetReplyByIdReq) returns (GetReplyByIdRes);
+    rpc CreateReply(CreateReplyReq) returns (CreateReplyRes);
+    rpc DeleteReply(DeleteReplyReq) returns (DeleteReplyRes);
+    rpc DoReplyAction(DoReplyActionReq) returns (DoReplyActionRes);
+    rpc ChangeReplyState(ChangeReplyStateReq) returns (ChangeReplyStateRes);
+}
+
+// request
+
+message ReplyReq {
+    int64 target_id = 1; // 目标对象id
+    int64 creator_id = 2; // 创建者id
+    int64 parent_id = 3; // 父级id
+    int64 rereply_id = 4; // 回复评论的id A发表某个评论的回复， B发表对这个回复的回复
+    string content = 5;
+    string extra = 6;
+}
+
+message ListRepliesReq {
+    string app_id = 1;
+    int64 target_id = 2; // 目标对象id
+    int32 page = 3;
+    int32 page_size = 4;
+    int64 creator_id = 5; // 创建者id
+    int64 parent_id = 6; // 父级id
+    int32 state = 7;
+    uint32 start_time = 8;
+    uint32 end_time = 9; 
+    int64 rereply_id = 10;
+}
+
+message GetReplyByIdReq {
+    string app_id = 1;
+    int64 reply_id = 2;
+}
+
+message CreateReplyReq {
+    string app_id = 1;
+    ReplyReq reply = 2;
+}
+
+message DeleteReplyReq {
+    string app_id = 1;
+    int64 reply_id = 2;
+}
+
+message DoReplyActionReq {
+    string app_id = 1;
+    enum Action {
+        LIKE = 1;
+        HATE = 2;
+    }
+    Action action = 2;
+    int64 reply_id = 3;
+}
+
+message ChangeReplyStateReq {
+    string app_id = 1;
+    int64 reply_id = 2;
+    int32 state = 3;
+}
+
+// message ListByTargetReq {
+//     string app_id = 1;
+//     int32 target_id = 2;
+//     int32 page = 3;
+//     int32 page_size = 4;
+// }
+
+// message GetByIdReq {
+//     int32 replyId = 1;
+// }
+
+// message ListByAppReq{
+//     string appId = 1;
+//     int32 page = 2;
+//     int32 page_size = 4;
+// }
+
+
+// message ListByReplyReq{
+
+
+// }
+
+
+// message ListByUserReq{
+
+// }
+
+// response
+
+message Reply {
+    int64 reply_id = 1;
+    int64 target_id = 2;
+    int64 creator_id = 3; 
+    int64 parent_id = 4; 
+    int64 rereply_id = 5; 
+    string content = 6;
+    string extra = 7;
+    int32 like = 8;
+    int32 hate = 9;
+    int32 state = 10;
+    uint32 create_at = 11;
+    uint32 floor = 12;
+}
+
+message ListRepliesRes {
+    string app_id = 1;
+    repeated Reply replies = 2;
+    int64 total = 3;
+    int32 page = 4;
+    int32 page_size = 5; 
+}
+
+
+message GetReplyByIdRes {
+    string app_id = 1;
+    Reply reply = 2;
+}
+
+message CreateReplyRes {
+    string app_id = 1;
+    Reply reply = 2;
+}
+
+message DeleteReplyRes {
+    string app_id = 1;
+    Reply reply = 2;
+}
+
+
+message DoReplyActionRes {
+    string app_id = 1;
+    Reply reply = 2;  
+}
+
+message ChangeReplyStateRes {
+    string app_id = 1;
+    Reply reply = 2; 
+}
+// message GetByIdRes{
+
+// }
+
+
+// message ListByAppRes{
+
+// }
+
+
+// message ListByTargetRes{
+
+// }
+
+// message ListByReplyRes{
+    
+// }
+
+// message ListByUserRes {
+
+// }
