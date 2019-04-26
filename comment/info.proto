@@ -107,8 +107,8 @@ message Comment {
     int32 hate = 9;
     enum ECommentState {
         UNKNOWN = 0;
-        SHOW = 1;
-        RECALL = 2;
+        SHOW = 1;      // 正常展示
+        WITHDRAW = 2;  // 撤回
     }
     ECommentState state = 10;
     uint32 created_at = 11;
