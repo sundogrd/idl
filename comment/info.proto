@@ -1,0 +1,117 @@
+syntax = "proto3";
+package comment;
+
+//service
+service CommentService {
+    // // 获取每个应用所有评论
+    // rpc ListRepliesByApp(ListByAppReq) returns (ListByAppRes);
+    // // 获取某个目标所有评论,比如文章
+    // rpc ListRepliesByTarget(ListByTargetReq) returns (ListByTargetRes);
+    // // 获取单个评论
+    // rpc GetReplyById(GetByIdReq) returns (GetByIdRes);
+    // // 获取某个评论回复
+    // rpc ListRepliesByReply(ListByReplyReq) returns (ListByReplyRes);
+    // // 获取某个用户所有评论
+    // rpc ListRepliesByCreator(ListByUserReq) returns (ListByUserRes);
+    // // 获取某段时间的评论
+
+    rpc ListComments(ListCommentsRequest) returns (ListCommentsResponse);
+    rpc GetCommentById(GetCommentByIdRequest) returns (GetCommentByIdResponse);
+    rpc CreateComment(CreateCommentRequest) returns (CreateCommentResponse);
+    rpc DeleteComment(DeleteCommentRequest) returns (DeleteCommentResponse);
+    rpc Like(LikeRequest) returns (LikeResponse);
+    rpc Hate(HateRequest) returns (HateResponse);
+}
+
+// request
+
+message ListCommentsRequest {
+    string app_id = 1;
+    int64 target_id = 2; // 目标对象id
+
+    int32 page = 3;
+    int32 page_size = 4;
+    int64 creator_id = 5; // 创建者id
+    int64 parent_id = 6; // 父级id
+    int32 state = 7;
+    uint32 start_time = 8;
+    uint32 end_time = 9; 
+    int64 re_comment_id = 10;
+}
+message ListCommentsResponse {
+    string app_id = 1;
+    repeated Comment comments = 2;
+    int64 total = 3;
+    int32 page = 4;
+    int32 page_size = 5; 
+}
+
+message GetCommentByIdRequest {
+    int64 comment_id = 2;
+}
+
+message GetCommentByIdResponse {
+    Comment comment = 2;
+}
+
+message CreateCommentRequest {
+    message CommentCreateParams {
+        int64 target_id = 1; // 目标对象id
+        int64 creator_id = 2; // 创建者id
+        int64 parent_id = 3; // 父级id
+        int64 re_comment_id = 4; // 回复评论的id A发表某个评论的回复， B发表对这个回复的回复
+        string content = 5;
+        string extra = 6;
+    }
+    string app_id = 1;
+    CommentCreateParams comment = 2;
+}
+message CreateCommentResponse {
+    string app_id = 1;
+    Comment comment = 2;
+}
+
+message DeleteCommentRequest {
+    string app_id = 1;
+    int64 comment_id = 2;
+}
+message DeleteCommentResponse {
+    string app_id = 1;
+    Comment comment = 2;
+}
+
+message LikeRequest {
+    int64 comment_id = 2;
+
+}
+message LikeResponse {
+    Comment comment = 2;
+}
+
+message HateRequest {
+    int64 comment_id = 2;
+}
+message HateResponse {
+    Comment comment = 2;
+}
+
+message Comment {
+    int64 comment_id = 1;
+    int64 target_id = 2;
+    int64 creator_id = 3; 
+    int64 parent_id = 4; 
+    int64 re_comment_id = 5; 
+    string content = 6;
+    string extra = 7;
+    int32 like = 8;
+    int32 hate = 9;
+    enum ECommentState {
+        UNKNOWN = 0;
+        SHOW = 1;
+        RECALL = 2;
+    }
+    ECommentState state = 10;
+    uint32 created_at = 11;
+    uint32 modified_at = 12;
+    uint32 floor = 13;
+}
