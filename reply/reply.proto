@@ -119,8 +119,9 @@ message Reply {
     int32 like = 8;
     int32 hate = 9;
     int32 state = 10;
-    uint32 create_at = 11;
-    uint32 floor = 12;
+    uint32 created_at = 11;
+    uint32 modified_at = 12;
+    uint32 floor = 13;
 }
 
 message ListRepliesRes {
