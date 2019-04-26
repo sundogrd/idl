@@ -47,11 +47,11 @@ message ListCommentsResponse {
 }
 
 message GetCommentByIdRequest {
-    int64 comment_id = 2;
+    int64 comment_id = 1;
 }
 
 message GetCommentByIdResponse {
-    Comment comment = 2;
+    Comment comment = 1;
 }
 
 message CreateCommentRequest {
@@ -77,22 +77,21 @@ message DeleteCommentRequest {
 }
 message DeleteCommentResponse {
     string app_id = 1;
-    Comment comment = 2;
+    int64 comment_id = 2;
 }
 
 message LikeRequest {
-    int64 comment_id = 2;
-
+    int64 comment_id = 1;
 }
 message LikeResponse {
-    Comment comment = 2;
+    int64 comment_id = 1;
 }
 
 message HateRequest {
-    int64 comment_id = 2;
+    int64 comment_id = 1;
 }
 message HateResponse {
-    Comment comment = 2;
+    int64 comment_id = 1;
 }
 
 message Comment {
