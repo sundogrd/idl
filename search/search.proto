@@ -2,57 +2,74 @@ syntax = "proto3";
 package search;
 service SearchService {
   rpc AddIndex(AddIndexRequest) returns (AddIndexResponse);
-  rpc GetIndex(GetIndexRequest) returns (GetIndexResponse);
-  rpc UpdateIndex(UpdateIndexRequest) returns (UpdateIndexResponse);
+  // rpc GetIndex(GetIndexRequest) returns (GetIndexResponse);
   rpc DeleteIndex(DeleteIndexRequest) returns (DeleteIndexResponse);
+  rpc IndexDocument(IndexDocumentRequest) returns (IndexDocumentResponse); // Index API
   rpc Search(SearchRequest) returns (SearchResponse);
   // The Bulk API does not fail due to failures in one of the actions. If a single action fails for whatever reason, it will continue to process the remainder of the actions after it. When the bulk API returns, it will provide a status for each action (in the same order it was sent in) so that you can check if a specific action failed or not.
-  rpc BatchProcess(BatchProcessRequest) returns (BatchProcessResponse);
+  rpc Bulk(BulkRequest) returns (BulkResponse);
 }
 
 message AddIndexRequest {
   string app_id = 1;
+  string index_name = 2;
+  string index_json = 3;
 }
 
 message AddIndexResponse {
-
-}
-message GetIndexRequest {
-  string app_id = 1;
 }
 
-message GetIndexResponse {
+// message GetIndexRequest {
+//   string app_id = 1;
+//   string index_name = 2;
+// }
 
-}
+// message GetIndexResponse {
 
-message UpdateIndexRequest {
-  string app_id = 1;
-}
-
-message UpdateIndexResponse {
-
-}
+// }
 
 message DeleteIndexRequest {
   string app_id = 1;
+  string index_name = 2;
 }
 
 message DeleteIndexResponse {
-
 }
 
 message SearchRequest {
   string app_id = 1;
+  string query_json = 2;
 }
 
 message SearchResponse {
-
+  int64 total = 1;
+  float max_score = 2;
+  repeated SearchResult hits = 3;
+}
+message SearchResult {
+  string index = 1;
+  string type = 2;
+  int64 id = 3;
+  float score = 4;
+  string source_json = 5;
 }
 
-message BatchProcessRequest {
+message BulkRequest {
   string app_id = 1;
+  repeated string commands = 2;
 }
 
-message BatchProcessResponse {
+message BulkResponse {
 
+}
+
+message IndexDocumentRequest {
+  string app_id = 1;
+  string index_name = 2;
+  int64 doc_id = 3;
+  string doc_json = 4;
+}
+
+message IndexDocumentResponse {
+  int64 doc_id = 1;
 }
