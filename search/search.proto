@@ -1,7 +1,7 @@
 syntax = "proto3";
 package search;
 service SearchService {
-  rpc Index(IndexRequest) returns (IndexResponse);
+  rpc AddIndex(AddIndexRequest) returns (AddIndexResponse);
   // rpc GetIndex(GetIndexRequest) returns (GetIndexResponse);
   rpc DeleteIndex(DeleteIndexRequest) returns (DeleteIndexResponse);
   rpc IndexDocument(IndexDocumentRequest) returns (IndexDocumentResponse); // Index API
@@ -10,13 +10,13 @@ service SearchService {
   rpc Bulk(BulkRequest) returns (BulkResponse);
 }
 
-message IndexRequest {
+message AddIndexRequest {
   string app_id = 1;
   string index_name = 2;
   string index_json = 3;
 }
 
-message IndexResponse {
+message AddIndexResponse {
 }
 
 // message GetIndexRequest {
