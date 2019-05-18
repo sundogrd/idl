@@ -39,7 +39,8 @@ message DeleteIndexResponse {
 
 message SearchRequest {
   string app_id = 1;
-  string query_json = 2;
+  string index_name = 2;
+  string query_json = 3;
 }
 
 message SearchResponse {
