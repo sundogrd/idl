@@ -5,6 +5,7 @@ service SearchService {
   // rpc GetIndex(GetIndexRequest) returns (GetIndexResponse);
   rpc DeleteIndex(DeleteIndexRequest) returns (DeleteIndexResponse);
   rpc IndexDocument(IndexDocumentRequest) returns (IndexDocumentResponse); // Index API
+  rpc DeleteDocument(DeleteDocumentRequest) returns (DeleteDocumentResponse);
   rpc Search(SearchRequest) returns (SearchResponse);
   // The Bulk API does not fail due to failures in one of the actions. If a single action fails for whatever reason, it will continue to process the remainder of the actions after it. When the bulk API returns, it will provide a status for each action (in the same order it was sent in) so that you can check if a specific action failed or not.
   rpc Bulk(BulkRequest) returns (BulkResponse);
@@ -72,4 +73,13 @@ message IndexDocumentRequest {
 
 message IndexDocumentResponse {
   int64 doc_id = 1;
+}
+
+message DeleteDocumentRequest {
+  string app_id = 1;
+  string index_name = 2;
+  int64 doc_id = 3;
+}
+
+message DeleteDocumentResponse {
 }
