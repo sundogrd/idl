@@ -45,14 +45,14 @@ message SearchRequest {
 
 message SearchResponse {
   int64 total = 1;
-  float max_score = 2;
+  double max_score = 2;
   repeated SearchResult hits = 3;
 }
 message SearchResult {
   string index = 1;
   string type = 2;
   int64 id = 3;
-  float score = 4;
+  double score = 4;
   string source_json = 5;
 }
 
