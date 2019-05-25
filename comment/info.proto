@@ -27,7 +27,7 @@ service CommentService {
 
 message ListCommentsRequest {
     string app_id = 1;
-    int64 target_id = 2; // 目标对象id
+    int64 target_id = 2; // 目标对象id,通常为文章
 
     int32 page = 3;
     int32 page_size = 4;
@@ -36,7 +36,14 @@ message ListCommentsRequest {
     int32 state = 7;
     uint32 start_time = 8;
     uint32 end_time = 9; 
-    int64 re_comment_id = 10;
+    int64 re_comment_id = 10; // 回复id
+    enum SortType {
+        TIME_HIGH = 0; // 从时间又近到远排序, 今天在前，昨天在后
+        TIME_LOW = 1; // 按照时间从远到进排序，昨天在前，今天在后
+        HOT_HIGH = 2;   // 根据热度从高到低排序，这里热度指点赞数
+        HOT_LOW = 3;    // 根据热度从低到高排序
+    }
+    SortType sort = 11;
 }
 message ListCommentsResponse {
     string app_id = 1;
