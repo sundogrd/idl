@@ -39,10 +39,9 @@ message Content {
     string body = 8;
     EContentBodyType body_type = 9;
     EContentState state = 10;
-    int32 version = 11;
-    string extra = 12;
-    uint32 created_at = 13;
-    uint32 updated_at = 14;
+    string extra = 11;
+    uint32 created_at = 12;
+    uint32 updated_at = 13;
 }
 
 
@@ -57,7 +56,7 @@ message ListContentsRequest {
     EContentType type = 7;
     EContentState state = 8;
     uint32 start_created_at = 9;
-    uint32 end_created_time = 10; 
+    uint32 end_created_at = 10; 
 }
 message ListContentsResponse {
     string app_id = 1;
