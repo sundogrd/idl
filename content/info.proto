@@ -11,6 +11,7 @@ service ContentService {
 
 // request
 enum EContentState {
+    UNKNOWN_STATE = 0;
     DRAFT = 1;  // 草稿
     CHECKING = 2;      // 审核中
     PUBLISHED = 3;  // 已发表
@@ -18,10 +19,12 @@ enum EContentState {
 }
 
 enum EContentType {
+    UNKNOWN_TYPE = 0;
     RICHTEXT = 1;
 }
 
 enum EContentBodyType {
+    UNKNOWN_BODY_TYPE = 0;
     TEXT = 1;
     HTML = 2;
     MARKDOWN = 3;
